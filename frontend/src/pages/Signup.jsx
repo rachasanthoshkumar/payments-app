@@ -28,19 +28,15 @@ const Signup = () => {
           <InputBox label={"Password"} placeholder={""}  onChange={(e)=>setPassword(e.target.value)}/>
           <div className="pt-4">
             <Button label={"Signup"} onClick={ async () => {
-              const response = await axios.post("http://localhost:3004/api/v1/user/signup", {
+              const response = await axios.post("http://localhost:3000/api/v1/user/signup", {
                 username,
                 firstName,
                 lastName,
                 password
-              }, {
-                withCredentials: true,
-                headers: {
-                  'Access-Control-Allow-Origin': '*',
-                },
-              });
+              }
+              );
               localStorage.setItem("token",response.data.token)
-              
+              navigate('/dashboard')
             }} />
           </div>
 

@@ -16,6 +16,7 @@ const signupBody = zod.object({
 })
 
 userRouter.post("/signup", async (req, res) => {
+    console.log(req.body)
     const { success } = signupBody.safeParse(req.body)
     if (!success) {
         return res.status(411).json({
@@ -52,6 +53,7 @@ userRouter.post("/signup", async (req, res) => {
 
     res.json({
         message: "User created successfully",
+        username:username,
         token: token
     })
 })
