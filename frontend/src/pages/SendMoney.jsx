@@ -1,14 +1,29 @@
 import React, { useState } from 'react'
 import {useSearchParams} from 'react-router-dom'
 import axios from 'axios';
+import toast from 'react-hot-toast'
+import { useNavigate } from 'react-router-dom';
 
 const SendMoney = () => {
 const [searchParams] = useSearchParams();
 const id = searchParams.get("id")
 const name = searchParams.get('name')
 const [amount,setAmount] = useState()
-{console.log(id)}
-{console.log(JSON.stringify(name))}
+const navigate = useNavigate()
+const notify = ()=>{
+  toast.success('Transfer Successfull!', {
+    position:"top-center",
+    autoClose:2000
+});
+}
+const errornotify = ()=>{
+  toast.error('Transfer failed!', {
+    position:"top-center",
+    autoClose:2000
+});
+}
+
+
 
   return (
     <div className='w-full h-screen bg-slate-400 flex items-center justify-center'>
@@ -34,17 +49,29 @@ const [amount,setAmount] = useState()
                 <div>
                   <button className='mt-1 rounded-md p-2 w-full bg-green-500 text-white'
                   onClick={async()=>{
-                    const response = await axios.post("http://localhost:3000/api/v1/account/transfer",{
-                      to:id,
-                      amount
-                    },
-                    {
-                      headers:{
-                        Authorization:"Bearer "+localStorage.getItem('token')
-                      }
-                    })
+                    try{
+                      const response = await axios.post("http://localhost:3000/api/v1/account/transfer",{
+                        to:id,
+                        amount
+                      },
+                      {
+                        headers:{
+                          Authorization:"Bearer "+localStorage.getItem('token')
+                        }
+                      })
+                      notify()
+                      navigate('/dashboard')
+                    
+                    }catch(error){
+                        errornotify();
+                        navigate('/signin')
+                    }
+                    
+                      
+                    
                   }}
                   >Initiate transfer</button>
+                  
                 </div>
               </div>
         </div>

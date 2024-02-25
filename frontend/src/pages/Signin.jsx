@@ -6,11 +6,15 @@ import Button from "../components/Button";
 import BottomWarning from "../components/BottomWarning";
 import axios from "axios";
 import { Navigate, useNavigate } from "react-router-dom";
+import toast from "react-hot-toast";
 
 const Signin = () => {
   const [username,setUsername] = useState("");
   const [password,setPassword] = useState("");
   const navigate= useNavigate()
+  const notify = ()=>{
+    toast.success("logged in")
+  }
   return (
     <div className="bg-slate-500 h-screen flex justify-center items-center">
       <div className="flex flex-col items-center justify-center  ">
@@ -27,6 +31,7 @@ const Signin = () => {
             })
             const token = await response.data.token;
             localStorage.setItem("token",token)
+            notify();
             navigate('/dashboard');
           }
 
