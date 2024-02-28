@@ -23,6 +23,13 @@ const errornotify = ()=>{
 });
 }
 
+const insufficinetNotify = ()=>{
+  toast.error('Insufficient balance!', {
+    position:"top-center",
+    autoClose:2000
+});
+}
+
 
 
   return (
@@ -59,7 +66,12 @@ const errornotify = ()=>{
                           Authorization:"Bearer "+localStorage.getItem('token')
                         }
                       })
-                      notify()
+                      if(response.data.msg=="insufficient balance"){
+
+                        insufficinetNotify()
+                      }else{
+                        notify()
+                      }
                       navigate('/dashboard')
                     
                     }catch(error){

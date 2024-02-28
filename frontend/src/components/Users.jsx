@@ -24,7 +24,7 @@ const Users = () => {
         onChange={(e)=>setFilter(e.target.value)}
           type="text"
           placeholder="Search users..."
-          className="w-full px-2 py-1 border rounded border-slate-200"
+          className="w-full px-2 py-1 border rounded border-slate-200 focus:outline-none"
         ></input>
       </div>
       <div>
