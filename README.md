@@ -1,2 +1,2 @@
 
-## Built a basic version of PayTM
+## Application which let's users send money to eachother with dummy balance
